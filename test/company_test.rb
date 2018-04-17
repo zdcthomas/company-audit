@@ -76,9 +76,9 @@ class CompanyTest < Minitest::Test
     assert company.timesheets.empty?
   end
 
-  def test_find_employee
+  def test_find_employee_by_id
     company = Company.new
-    company.load_timesheets('./data/employees.csv')
+    company.load_employees('./data/employees.csv')
     actual = company.find_employee_by_id(1)
     assert_instance_of Employee, actual
     assert_equal "Susan Smith", actual.name

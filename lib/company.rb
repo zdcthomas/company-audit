@@ -71,6 +71,12 @@ class Company
     return report(true)
   end
 
+  def find_employee_by_id(id)
+    @employees.find do |employee|
+      employee.id == id
+    end
+  end
+
 
   def report(success, error_type = nil)
     {success: success, error: error_type}
