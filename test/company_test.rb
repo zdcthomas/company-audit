@@ -54,4 +54,24 @@ class CompanyTest < Minitest::Test
     assert_equal 'bad data', loaded[:error]
     assert company.projects.empty?
   end
+
+  def test_load_timesheets_returns_success_hash
+    company = Company.new
+    good_timesheets = './data/timesheets.csv'
+    loaded = company.load_timesheets(good_timesheets)
+    assert_instance_of Hash, loaded
+    assert loaded[:success]
+    refute loaded[:error]
+    refute company.timesheets.empty?
+  end
+
+  def test_load_bad_timesheets_returns_error_if_data_is_bad
+    company = Company.new
+    bad_timesheets = './data/bad_timesheets.csv'
+    loaded = company.load_timesheets(bad_timesheets)
+    assert_instance_of Hash, loaded
+    refute loaded[:success]
+    assert_equal 'bad data', loaded[:error]
+    assert company.timesheets.empty?
+  end
 end
