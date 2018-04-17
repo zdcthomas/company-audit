@@ -17,5 +17,7 @@ class AuditTest < Minitest::Test
     company.load_timesheets('./data/timesheets.csv')
     actual = audit.load_company(company)
     assert_instance_of Company, actual
+    assert_equal company, audit.company
   end
+
 end
