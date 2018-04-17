@@ -30,8 +30,8 @@ class CompanyTest < Minitest::Test
     bad_employees = './data/bad_employees.csv'
     loaded = company.load_employees(bad_employees)
     assert_instance_of Hash, loaded
-    refute loader[:success]
-    assert_eqaul 'bad data', loaded[:error]
+    refute loaded[:success]
+    assert_equal 'bad data', loaded[:error]
     assert company.employees.empty?
   end
 end

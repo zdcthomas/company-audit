@@ -3,6 +3,6 @@ require 'csv'
 class FileIo
   def self.load(path)
     File.join(File.expand_path(__FILE__), path)
-    CSV.open path, headers: true, header_converters: :symbol
+    CSV.open path
   end
 end
