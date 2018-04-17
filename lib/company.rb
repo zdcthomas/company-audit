@@ -25,7 +25,6 @@ class Company
       if id && name && role && start_date && end_date
         temp_employess << Employee.new(id, name, role, start_date, end_date)
       else
-        failed = true
         return report(false,'bad data')
       end
     end
@@ -44,7 +43,6 @@ class Company
       if id && name && start_date && end_date
         temp_projects << Project.new(id, name, start_date, end_date)
       else
-        failed = true
         return report(false,'bad data')
       end
     end
@@ -63,7 +61,6 @@ class Company
       if employee_id && project_id && start_date && minutes
         temp_timesheets << Timesheet.new(employee_id, project_id, start_date, minutes)
       else
-        failed = true
         return report(false,'bad data')
       end
     end
@@ -81,6 +78,18 @@ class Company
     @projects.find do |project|
       project.id == id
     end
+  end
+
+  def events
+    events = []
+    @timesheets.each do |timesheet|
+      event[:employee] = find_by_employee_id(timesheet.employee_id)
+      event[:project] = find_by_project_id(timesheet.project_id)
+      event[:date] = timesheet.date
+      event[:minutes] = timesheet.minutes
+      events << event
+    end
+    events
   end
 
 
