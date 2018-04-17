@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/company'
+require './lib/employee'
 
 class CompanyTest < Minitest::Test
   def test_it_exists
@@ -73,5 +74,16 @@ class CompanyTest < Minitest::Test
     refute loaded[:success]
     assert_equal 'bad data', loaded[:error]
     assert company.timesheets.empty?
+  end
+
+  def test_find_employee
+    company = Company.new
+    company.load_timesheets('./data/employees.csv')
+    actual = company.find_employee_by_id(1)
+    assert_instance_of Employee, actual
+    assert_equal "Susan Smith", actual.name
+    actual = company.find_employee_by_id(2)
+    assert_instance_of Employee, actual
+    assert_equal "John Smith", actual.name
   end
 end
