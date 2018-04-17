@@ -77,6 +77,12 @@ class Company
     end
   end
 
+  def find_project_by_id(id)
+    @projects.find do |project|
+      project.id == id
+    end
+  end
+
 
   def report(success, error_type = nil)
     {success: success, error: error_type}
