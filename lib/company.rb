@@ -52,6 +52,25 @@ class Company
     return report(true)
   end
 
+  def load_timesheets(path)
+    csv_read = FileIo.load(path)
+    temp_timesheets = []
+    csv_read.each do |timesheet|
+      id = timesheet[0]
+      name = timesheet[1]
+      start_date = timesheet[2]
+      end_date = timesheet[3]
+      if id && name && start_date && end_date
+        temp_timesheets << Timesheet.new(id, name, start_date, end_date)
+      else
+        failed = true
+        return report(false,'bad data')
+      end
+    end
+    temp_timesheets.each{|timesheet|@timesheets << timesheet}
+    return report(true)
+  end
+
 
   def report(success, error_type = nil)
     {success: success, error: error_type}
