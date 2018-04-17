@@ -93,5 +93,9 @@ class CompanyTest < Minitest::Test
     company.load_projects('./data/projects.csv')
     actual = company.find_project_by_id(1)
     assert_instance_of Project, actual
+    assert_equal 'Widgets', actual.name
+    actual = company.find_project_by_id(2)
+    assert_instance_of Project, actual
+    assert_equal 'More Widgets', actual.name
   end
 end
