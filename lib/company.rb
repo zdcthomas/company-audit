@@ -56,12 +56,12 @@ class Company
     csv_read = FileIo.load(path)
     temp_timesheets = []
     csv_read.each do |timesheet|
-      id = timesheet[0]
-      name = timesheet[1]
+      employee_id = timesheet[0]
+      project_id = timesheet[1]
       start_date = timesheet[2]
-      end_date = timesheet[3]
-      if id && name && start_date && end_date
-        temp_timesheets << Timesheet.new(id, name, start_date, end_date)
+      minutes = timesheet[3]
+      if employee_id && project_id && start_date && minutes
+        temp_timesheets << Timesheet.new(employee_id, project_id, start_date, minutes)
       else
         failed = true
         return report(false,'bad data')
