@@ -98,4 +98,14 @@ class CompanyTest < Minitest::Test
     assert_instance_of Project, actual
     assert_equal 'More Widgets', actual.name
   end
+
+  def events
+    company = Company.new
+    company.load_projects('./data/projects.csv')
+    company.load_timesheets('./data/timesheets.csv')
+    company.load_employees('./data/employees.csv')
+    actual = company.events
+    assert_instance_of Hash, actual
+  end
+
 end
